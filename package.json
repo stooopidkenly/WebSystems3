@@ -1,0 +1,21 @@
+{
+  "name": "my-first-app",
+  "version": "1.0.1",
+  "description": "This is my first node.js app",
+  "homepage": "https://github.com/stooopidkenly/WebSystems3#readme",
+  "bugs": {
+    "url": "https://github.com/stooopidkenly/WebSystems3/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stooopidkenly/WebSystems3.git"
+  },
+  "license": "ISC",
+  "author": "John Kenly Pamor",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  }
+}
