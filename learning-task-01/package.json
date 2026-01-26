@@ -1,0 +1,12 @@
+{
+  "name": "learning-task-01",
+  "version": "1.0.1",
+  "description": "First Learning Task for Web3 Course",
+  "license": "MIT",
+  "author": "John Kenly Pamor",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
