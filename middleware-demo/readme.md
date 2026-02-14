@@ -6,4 +6,4 @@ npm install nodemon
 package.json file
 
 scripts
-"dev": "nodemon app.js" (nodemon *entry file*)
+"dev": "nodemon app.js" (nodemon *file.js*)
