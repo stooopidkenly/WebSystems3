@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head.ejs')%>
+  <body>
+    <%- include('partials/header.ejs')%>
+
+    <main>
+      <h2><%= contentTitle %></h2>
+      <p><%= content %></p>
+      <table border="2">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Program</th>
+        </tr>
+            <% students.forEach(student => { %>
+                <tr>
+                    <td><%= student.id %></td>
+                    <td><%= student.name %></td>
+                    <td><%= student.program %></td>
+                </tr>
+            <% }) %>
+
+      </table>
+    </main>
+
+    <%- include('partials/footer.ejs')%>
+
+    <script>
+      // const yearID = document.getElementById('year');
+      const date = new Date();
+      const getCurrentYear = date.getFullYear();
+      document.getElementById("year").textContent = getCurrentYear; //dynamic year
+    </script>
+  </body>
+</html>

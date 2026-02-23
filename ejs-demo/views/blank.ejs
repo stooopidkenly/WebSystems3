@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head.ejs')%>
+<body>
+
+    <%- include('partials/header.ejs')%>
+
+    <main>
+        <h2><%= contentTitle %></h2>
+        <p><%= content %></p>
+    </main>
+
+   <%- include('partials/footer.ejs')%>
+
+    <script>
+        // const yearID = document.getElementById('year');
+        const date = new Date();
+        const getCurrentYear = date.getFullYear();
+        document.getElementById('year').textContent = getCurrentYear; //dynamic year
+    </script>
+</body>
+</html>

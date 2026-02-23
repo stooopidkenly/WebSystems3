@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple One-Page Site</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to My Website</h1>
+    </header>
+
+    <main>
+        <h2>Main Content Area</h2>
+        <p>This is where your primary information goes. This template uses a simple flexbox layout to ensure the footer stays at the bottom of the page even if there isn't much content.</p>
+    </main>
+
+    <footer>
+         <p>&copy; <span id="year"></span> My Simple Page. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // const yearID = document.getElementById('year');
+        const date = new Date();
+        const getCurrentYear = date.getFullYear();
+        document.getElementById('year').textContent = getCurrentYear; //dynamic year
+    </script>
+</body>
+</html>
