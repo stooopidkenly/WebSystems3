@@ -1,41 +1,79 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const promisePool = require('./db.js');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// INSERT 
+async function createStudent(name, email){
+  const sqlQuery = "INSERT INTO students(name, email) VALUES (?, ?)";
+  try{
+    const [result] = await promisePool.execute(sqlQuery, [name, email]);
+    return result.insertId;
+  }catch(err){
+    console.log('Error in Create', err);
+  }
+}
 
-var app = express();
+// SELECT
+async function getAllStudents() {
+    const sqlQuery = "SELECT * FROM students";
+    try{
+      const [rows] = await promisePool.query(sqlQuery);
+      return rows;
+    }catch(err){
+      console.log('Error in Read', err);  
+    }
+}
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// UPDATE
+async function updateStudentEmail(id, email){
+  const sqlQuery = "UPDATE students SET email = ? WHERE id = ?";
+  try{
+    const [result] = await promisePool.execute(sqlQuery, [email, id]);
+    return result.affectedRows;
+  }catch(err){
+    console.log('Error in Update', err);  
+  }
+}
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// DELETE
+async function deleteStudent(id){
+  const sqlQuery = "DELETE FROM students WHERE id = ?";
+  try{
+    const [result] = await promisePool.execute(sqlQuery, [id]);
+    return result.affectedRows;
+  }catch(err){
+    console.log('Error in Delete', err);  
+  }
+}
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+async function runDemo(){
+  
+  // CREATE
+  const newId = await createStudent('Luffy', 'pirateking@gmail.com');
+  console.log(`Created student with ID: ${newId}`);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+  // READ
+  const studentsBefore = await getAllStudents();
+  console.log("Before Update/Delete:");
+  console.table(studentsBefore);
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // UPDATE
+  const updatedRows = await updateStudentEmail(newId, 'luffy@gmail.com');
+  console.log(`Updated rows: ${updatedRows}`);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+  // READ again
+  const studentsAfterUpdate = await getAllStudents();
+  console.log("After Update:");
+  console.table(studentsAfterUpdate);
 
-module.exports = app;
+  // DELETE
+  const deletedRows = await deleteStudent(newId);
+  console.log(`Deleted rows: ${deletedRows}`);
+
+  // FINAL READ
+  const studentsAfterDelete = await getAllStudents();
+  console.log("After Delete:");
+  console.table(studentsAfterDelete);
+
+  process.exit();
+}
+
+runDemo();
